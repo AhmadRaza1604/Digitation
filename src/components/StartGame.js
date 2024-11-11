@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaCheck, FaX } from 'react-icons/fa6';
 
 const StartGame = () => {
   const [guesses, setGuesses] = useState([]);
@@ -28,6 +29,7 @@ const StartGame = () => {
 
     let correctPlace = 0;
     let correctDigits = 0;
+    let correctPlacedDigits=[];
 
     // Count correct places
     for (let i = 0; i < currentGuess.length; i++) {
@@ -48,41 +50,41 @@ const StartGame = () => {
       if (user.scores.length < 5 || score > Math.min(...user.scores)) {
         user.scores = [...user.scores, score].sort((a, b) => b - a).slice(0, 5);
         localStorage.setItem('user', JSON.stringify(user));
-        alert('New high score!');
       }
       setFeedback('You guessed the number! Returning to the main menu.');
-      setTimeout(() => {
-        window.location.href = '/menu';
-      }, 3000);
     } else {
       setFeedback(`${correctPlace} digits in the correct place, ${correctDigits} in the wrong place.`);
     }
   };
 
   const calculateScore = (difficulty, attempts) => {
-    return Math.max(10000 - attempts * 100 - difficulty * 500, 0);
+    return Math.max(1000*difficulty - attempts * 100, 0);
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
       <div className="p-6 max-w-md w-full bg-white rounded-md shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Start Game</h2>
-        {guesses.map((g, index) => (
-          <p key={index}>
-            Guess {index + 1}: {g.guess} - {g.correctPlace} correct, {g.correctDigits} wrong place
+        <h2 className="text-2xl font-bold mb-4 text-center text-green-700 font-mono">Digitation</h2>
+        <div className='max-h-60 mb-2 overflow-y-scroll'>
+
+          {guesses.map((g, index) => (
+          <p key={index}
+          className='flex justify-center text-gray-500 items-center mb-1 space-x-3'>
+            Guess {index + 1}: <span className=' mx-1 rounded-lg px-2 border border-gray-400'>{g.guess}</span> <span className='flex items-center'>{g.correctPlace}<FaCheck className='text-green-600'/></span><span className='flex items-center'>{g.correctDigits}<FaX className='text-red-600'/></span> 
           </p>
         ))}
+        </div>
         <input
           type="text"
           value={currentGuess}
           onChange={handleChange}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border border-gray-300 rounded-lg"
           maxLength={generatedNumber.length}
           placeholder="Enter your guess"
         />
         <button
           onClick={checkGuess}
-          className="w-full p-2 bg-green-500 text-white rounded hover:bg-green-600"
+          className="w-full p-2 bg-green-500 text-white rounded-lg hover:rounded-tl-full hover:rounded-br-full hover:bg-green-600"
         >
           Check Guess
         </button>

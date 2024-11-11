@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Scores = () => {
   const [scores, setScores] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -20,19 +22,24 @@ const Scores = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
       <div className="p-6 max-w-sm w-full bg-white rounded-md shadow-md text-center">
-        <h2 className="text-2xl font-bold mb-4">Top Scores</h2>
+      <div className='text-end'>
+        <button className="text-md mb-4 border rounded-full px-2 py-1 border-transparent text-green-700 hover:border-green-700"
+        onClick={()=>(navigate('/menu'))}
+        >Go Back</button>
+        </div>
+        <h2 className="text-2xl font-bold mb-4 text-green-700">Top Scores</h2>
         {scores.length > 0 ? (
-          <ul>
+          <ul className='text-green-600'>
             {scores.map((score, index) => (
               <li key={index} className="text-lg">{score}</li>
             ))}
           </ul>
         ) : (
-          <p>No scores yet</p>
+          <p className='text-green-600'>No scores yet</p>
         )}
         <button
           onClick={resetScores}
-          className="mt-4 w-full p-2 bg-red-500 text-white rounded hover:bg-red-600"
+          className="mt-4 w-full p-2 bg-red-500 text-white rounded-lg hover:rounded-tl-full hover:rounded-br-full hover:bg-red-600"
         >
           Reset Scores
         </button>
