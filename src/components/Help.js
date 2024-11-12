@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaCheck, FaX } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 
 const Help = () => {
@@ -13,14 +14,23 @@ const Help = () => {
         >Go Back</button>
         </div>
         <h2 className="text-2xl font-bold mb-4 text-center text-green-700">How to Play</h2>
-        <p className="mb-4 text-justify">
-          Your task is to guess the randomly generated number. You will get feedback on
-          how many digits are in the correct place and how many are correct but in the
-          wrong place.
+        <div className='overflow-y-scroll scrollbar-hide bg-gray-50 p-2 rounded-3xl max-h-80'>
+        <p className="mb-4 text-justify ">
+          <li>A random number is generated of the length from range 4-10.</li>
+          <li>Player Task is to guess the correct number in as less attempts as possible and as early as possible.</li>
+          <li>After each attempt a feedback is given of how many digits in the guessed number are placed correctly and how many are part of the number but are placed incorrectly:
+            <ul className='flex justify-start items-center '><FaCheck className='text-green-600 mr-1'/> means digits placed corectly.</ul>
+            <ul className='flex justify-start items-center overflow-x-hidden' ><FaX className='text-red-600 mr-1'/> means digits placed incorectly but are   
+            </ul><ul>part of the number.</ul>
+          </li>
+          <li>Use The feedback to guess the correct number.</li>
+          <li>Player can set the difficulty from main menu. 4 means easiest as it contains less digits, 10 means hardest, as it contains more digits.</li>
+          <li>The score calculated is based on number of attempts, difficulty and time taken, High difficulty and low attempts and less time means high scores, and vice versa.</li>
         </p>
         <p className="mb-4 text-justify">
           The game ends when you guess the correct number. Try to get the highest score!
         </p>
+        </div>
       </div>
     </div>
   );

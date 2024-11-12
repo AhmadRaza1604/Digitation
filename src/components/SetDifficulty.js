@@ -32,7 +32,9 @@ const SetDifficulty = () => {
           className="w-full p-2 mb-4 border-2 text-gray-600 border-gray-300 rounded focus:border-green-700 outline-none"
         >
           {[...Array(7).keys()].map(i => (
-            <option key={i} value={i + 4}>{i + 4} Digits</option>
+            <option key={i} value={i + 4}
+            className='max-w-screen-sm hover:bg-green-500 hover:pointer'
+            >{i + 4} Digits</option>
           ))}
         </select>
         <button
